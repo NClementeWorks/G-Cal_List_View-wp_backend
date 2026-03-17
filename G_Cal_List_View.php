@@ -111,7 +111,7 @@ function g_cal_list_view_admin_menu () {
 		$manage_gclv_calendar_capability, // capability (access level)
 		'g_cal_list_view_settings', // menu slug
 		'g_cal_list_view_settings_page' // callback function
-	); 
+	);
 }
 
 function g_cal_list_view_admin_page () {
@@ -221,4 +221,55 @@ function g_calendar_list_view_save_setting ( $setting_name, $setting_value ) {
 		);
 	}
 
+}
+
+/*
+ * Add custom page to call the Google login publicly
+ */
+function register_gclv_login_page () {
+	$labels = [
+		"name" => __( "gclv_login", "gclv_login" ),
+		"singular_name" => __( "gclv_login", "gclv_login" ),
+		"menu_name" => __( "gclv_login", "gclv_login" ),
+	];
+	$args = [
+		"label" => __( "gclv_login", "gclv_login" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => false,
+		"show_in_rest" => false,
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"has_archive" => true,
+		"show_in_menu" => false, 
+		"show_in_nav_menus" => false,
+		"delete_with_user" => false,
+		"exclude_from_search" => true,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"rewrite" => false,
+		"query_var" => true,
+		"supports" => [],
+	];
+	register_post_type ( "gclv_login", $args );
+	
+	$gclv_login_page = get_page_by_path ( 'gclv_login', OBJECT, 'gclv_login' );
+
+	if ( !isset ( $gclv_login_page ) ) {
+		wp_insert_post ( array (
+			'post_status' => 'publish',
+			'post_type' => 'gclv_login',
+			'post_name' => 'gclv_login',
+		) );
+	}
+}
+add_action('init', 'register_gclv_login_page');
+
+/*
+ * Set Page templates for "gclv_login"
+ */
+add_filter( 'template_include', 'gclv_login_template' );
+function gclv_login_template ( $template ) {
+	return plugin_dir_path(__DIR__) . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . "\single-gclv_login.php";
 }
