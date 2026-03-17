@@ -34,7 +34,7 @@ $token_label = 'gclv_rtk';
 		?>
 		<h2>Finalizing...</h2>
 		<script type="text/javascript">
-			localStorage.setItem ( <?= $token_label ?>, '<?= $accessToken [ "refresh_token" ] ?>' )
+			localStorage.setItem ( '<?= $token_label ?>', '<?= $accessToken [ "refresh_token" ] ?>' )
 			self.close ()
 		</script>
 	<?php 
@@ -44,7 +44,7 @@ $token_label = 'gclv_rtk';
 		?>
 		<h2>Loging out...</h2>
 		<script type="text/javascript">
-			localStorage.removeItem ( <?= $token_label ?> )
+			localStorage.removeItem ( '<?= $token_label ?>' )
 			self.close ()
 		</script>
 	<?php 
