@@ -32,7 +32,7 @@ class G_Cal_List_View_Client {
 		// $request_login_state = 'g_cal_list_view_client';
 	}
 	
-	public function init_client () {
+	public function init_client ( $redirect = '' ) {
 		// Required, call the setAuthConfig function to load authorization credentials from
 		// client_secret.json file.
 		$this -> client -> setAuthConfig ( WP_PLUGIN_DIR . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . '/auth/client_secret_441737119463-7b5dg9f26dt469bdfa7geju9u201lfsc.apps.googleusercontent.com.json' );
@@ -42,7 +42,7 @@ class G_Cal_List_View_Client {
 
 		// Required, call the setRedirectUri function to specify a valid redirect URI for the
 		// provided client_id
-		$this -> client -> setRedirectUri ('https://' . $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'PHP_SELF' ] . '?page=g_cal_list_view_settings' );
+		$this -> client -> setRedirectUri ('https://' . $_SERVER[ 'HTTP_HOST' ] . $redirect );
 
 		// Recommended, offline access will give you both an access and refresh token so that
 		// your app can refresh the access token without user interaction.

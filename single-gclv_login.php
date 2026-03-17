@@ -10,7 +10,7 @@ require_once WP_PLUGIN_DIR . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . '/ven
 require_once WP_PLUGIN_DIR . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . '/g_cal_list_view_client.php';
 
 $client = new G_Cal_List_View_Client ();
-$client -> init_client ();
+$client -> init_client ( $_SERVER[ 'REDIRECT_URL' ] );
 
 $token_label = 'gclv_rtk';
 
