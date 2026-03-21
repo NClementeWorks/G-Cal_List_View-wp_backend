@@ -87,9 +87,9 @@ class G_Cal_List_View_Client {
 		return $this -> client -> revokeToken ();
 	}
 
-	public function laod_access_token () {
-		$accessToken = $this -> client -> fetchAccessTokenWithAuthCode ( $_GET[ 'code' ] );
-		$this -> client -> setAccessToken ( $accessToken );
-		return $accessToken;
+	public function laod_access_token ( $code ) {
+		$access_token = $this -> client -> fetchAccessTokenWithAuthCode ( $code );
+		$this -> client -> setAccessToken ( $access_token );
+		return $access_token;
 	}
 }

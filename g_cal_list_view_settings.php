@@ -12,6 +12,7 @@ require_once WP_PLUGIN_DIR . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . '/g_c
 
 $client = new G_Cal_List_View_Client ();
 $redirect = $_SERVER[ 'REQUEST_SCHEME' ] . '://' . $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'PHP_SELF' ] . '?page=g_cal_list_view_settings';
+// echo $redirect;
 $client -> init_client ( $redirect );
 
 global $wpdb;
@@ -27,7 +28,7 @@ $refresh_token_res = $wpdb -> get_row (
 	$wpdb -> prepare ( "SELECT g.setting_value FROM " . $wpdb->prefix . "g_cal_list_view g WHERE g.setting_name = 'gclient_rtk'")
 );
 
-if ( isset ( $refresh_token_res ) && strlen ( $refresh_token_res->setting_value ) > 0 ) {
+if ( isset ( $refresh_token_res ) && strlen ( $refresh_token_res -> setting_value ) > 0 ) {
 	$refresh_token = $refresh_token_res -> setting_value;
 	$auth_token = $client -> get_new_auth_token ( $refresh_token );
 }
@@ -48,11 +49,11 @@ else if (!isset($_GET['code']) && !isset($_GET['error']))
 		scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly
 */
 // and store refresh token in DB
-else if (isset($_GET['code'])) {
-	$accessToken = $client -> laod_access_token ();
+else if ( isset ( $_GET[ 'code' ] ) ) {
+	$accessToken = $client -> laod_access_token ( $_GET['code'] );
 	g_calendar_list_view_save_setting ( 'gclient_rtk', $accessToken[ "refresh_token" ] );
 }
-else if (!isset($_GET['code']) && !isset($_GET['error'])) {
+else if ( !isset ( $_GET[ 'code' ] ) && !isset ( $_GET[ 'error' ] ) ) {
 }
 ?>
 	<style>
@@ -67,6 +68,7 @@ else if (!isset($_GET['code']) && !isset($_GET['error'])) {
 		<h2><strong>My Google Calendar List View: Settings</strong></h2>
 		
 <?php
+
 	if ( isset ( $auth_token ) && strlen ( $auth_token ) > 0 ) {
 	?>
 		<h1>HOORAY!! You are logged in</h1>

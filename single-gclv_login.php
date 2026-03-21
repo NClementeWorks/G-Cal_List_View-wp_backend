@@ -32,7 +32,7 @@ $token_label = 'gclv_rtk';
 	<?php 
 	}
 	else if ( isset ( $_GET[ 'code' ] )) {
-		$accessToken = $client -> laod_access_token ();
+		$accessToken = $client -> laod_access_token ( $_GET[ 'code' ] );
 		?>
 		<h2>Finalizing...</h2>
 		<script type="text/javascript">
