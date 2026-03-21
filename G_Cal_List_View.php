@@ -272,4 +272,16 @@ add_action('init', 'register_gclv_login_page');
 add_filter( 'template_include', 'gclv_login_template' );
 function gclv_login_template ( $template ) {
 	return plugin_dir_path(__DIR__) . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . "\single-gclv_login.php";
+
+/**
+ * Add Shortcode
+ */
+add_shortcode ( 'google_calendar_list_view', 'gclv_shortcode' );
+function gclv_shortcode ( $_atts = [] ) {
+	
+	ob_start();
+	add_action ( 'wp_enqueue_scripts', 'enqueue_g_cal_list_view_scripts' );
+	require_once WP_PLUGIN_DIR . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . '/g_cal_list_view_main.php';
+	return ob_get_clean();
+	
 }
