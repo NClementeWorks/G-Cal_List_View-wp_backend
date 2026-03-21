@@ -271,7 +271,13 @@ add_action('init', 'register_gclv_login_page');
  */
 add_filter( 'template_include', 'gclv_login_template' );
 function gclv_login_template ( $template ) {
-	return plugin_dir_path(__DIR__) . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . "\single-gclv_login.php";
+	if ( get_queried_object () -> post_type == 'gclv_login' )
+		return str_replace ( '//', '/', plugin_dir_path(__DIR__) . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . "/single-gclv_login.php" );
+	else
+		return $template;
+}
+
+
 
 /**
  * Add Shortcode
