@@ -122,11 +122,14 @@ function g_cal_list_view_settings_page () {
 	require_once WP_PLUGIN_DIR . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . '/g_cal_list_view_settings.php';
 }
 
-add_action ( 'admin_enqueue_scripts', 'enqueue_g_cal_list_view_scripts' );
-function enqueue_g_cal_list_view_scripts ( $hook ) {
- 	if ( 'toplevel_page_g_cal_list_view' != $hook ) {
-			return;
+add_action ( 'admin_enqueue_scripts', 'admin_enqueue_g_cal_list_view_scripts' );
+function admin_enqueue_g_cal_list_view_scripts ( $hook ) {
+ 	if ( 'toplevel_page_g_cal_list_view' == $hook ) {
+		enqueue_g_cal_list_view_scripts ();
 	}
+}
+
+function enqueue_g_cal_list_view_scripts () {
 
 	// if (function_exists('wp_enqueue_media')) {
 		// wp_enqueue_media();
