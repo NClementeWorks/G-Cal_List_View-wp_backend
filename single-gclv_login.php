@@ -10,8 +10,10 @@ require_once WP_PLUGIN_DIR . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . '/ven
 require_once WP_PLUGIN_DIR . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . '/g_cal_list_view_client.php';
 
 $client = new G_Cal_List_View_Client ();
-$client -> init_client ( $_SERVER[ 'REDIRECT_URL' ] );
-
+$redirect = $_SERVER[ 'REQUEST_SCHEME' ] . '://' . $_SERVER[ 'HTTP_HOST' ] . $_SERVER [ 'CONTEXT_PREFIX' ] . '/?gclv_login=gclv_login';
+// $redirect = preg_replace ( "/(\?|&)(login|logout)/", '', $redirect );
+$client -> init_client ( $redirect );
+		
 $token_label = 'gclv_rtk';
 
 ?>

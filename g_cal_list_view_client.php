@@ -42,7 +42,7 @@ class G_Cal_List_View_Client {
 
 		// Required, call the setRedirectUri function to specify a valid redirect URI for the
 		// provided client_id
-		$this -> client -> setRedirectUri ('https://' . $_SERVER[ 'HTTP_HOST' ] . $redirect );
+		$this -> client -> setRedirectUri ( $redirect );
 
 		// Recommended, offline access will give you both an access and refresh token so that
 		// your app can refresh the access token without user interaction.
