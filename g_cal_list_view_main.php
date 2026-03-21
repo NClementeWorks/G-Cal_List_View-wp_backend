@@ -93,8 +93,12 @@ $plugin_url = get_site_url() . '/wp-content/plugins' . $GLOBALS[ 'g_cal_list_vie
 	</style>
 <?php
 	if ( isset ( $_GET[ 'token' ] ) || ( isset ( $token_res ) && !!$token_res -> setting_value ) ) {
+		
+		$gclv_login_page_id = g_calendar_list_view_get_setting ( 'gclv_login_page_id' );
+		$gclv_login_page = get_post ( $gclv_login_page_id );
 		wp_nonce_field ( 'wp_rest', '_wpnonce', true, true );
 ?>
+	<input id="gclv_login_url" type="hidden" value="<?= $gclv_login_page -> guid ?>" />
 
 	<div id="g_cal_list_view_app"></div>
 	<!-- END APP -->
