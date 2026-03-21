@@ -269,13 +269,19 @@ function register_gclv_login_page () {
 	
 	$gclv_login_page = get_page_by_path ( 'gclv_login', OBJECT, 'gclv_login' );
 
-	if ( !isset ( $gclv_login_page ) ) {
-		wp_insert_post ( array (
+	if ( isset ( $gclv_login_page ) ) {
+		$gclv_login_page_id = $gclv_login_page -> ID;
+	}
+	else {
+		$gclv_login_page_id = wp_insert_post ( array (
 			'post_status' => 'publish',
 			'post_type' => 'gclv_login',
 			'post_name' => 'gclv_login',
 		) );
 	}
+	
+	g_calendar_list_view_save_setting ( 'gclv_login_page_id', $gclv_login_page_id );
+	
 }
 add_action('init', 'register_gclv_login_page');
 
