@@ -61,15 +61,6 @@ $client -> setIncludeGrantedScopes ( true );
 // Retrieve current refresh token
 global $wpdb;
 	
-$token_res = $wpdb -> get_row (
-	$wpdb -> prepare ( "SELECT g.setting_value FROM " . $wpdb->prefix . "g_cal_list_view g WHERE g.setting_name = 'gclient_rtk'")
-);
-
-if ( isset ( $token_res ) && !!$token_res -> setting_value ) {
-	$refresh_token = $token_res -> setting_value;
-	$client -> refreshToken ( $refresh_token );
-	$newtoken = $client -> getAccessToken ();
-}
 
 $plugin_url = get_site_url() . '/wp-content/plugins' . $GLOBALS[ 'g_cal_list_view_plugin_folder' ];
 ?>
@@ -92,7 +83,6 @@ $plugin_url = get_site_url() . '/wp-content/plugins' . $GLOBALS[ 'g_cal_list_vie
 }
 	</style>
 <?php
-	if ( isset ( $_GET[ 'token' ] ) || ( isset ( $token_res ) && !!$token_res -> setting_value ) ) {
 		
 		$gclv_login_page_id = g_calendar_list_view_get_setting ( 'gclv_login_page_id' );
 		$gclv_login_page = get_post ( $gclv_login_page_id );
@@ -102,16 +92,3 @@ $plugin_url = get_site_url() . '/wp-content/plugins' . $GLOBALS[ 'g_cal_list_vie
 
 	<div id="g_cal_list_view_app"></div>
 	<!-- END APP -->
-
-<?php
-	}
-	else {
-?>
-
-	<h1>We were unable to connect to your Google Calendar</h1>
-	<h3>Make sure you are logged-in:
-	<a href="admin.php?page=g_cal_list_view_settings">Go to Settings >></a></h3>
-	<h4>If the problem persists after you logged-in, please contact your webmaster.</h4>
-
-<?php
-	}
