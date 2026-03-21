@@ -10,7 +10,7 @@ require_once WP_PLUGIN_DIR . $GLOBALS[ 'g_cal_list_view_plugin_folder' ] . '/g_c
 $api_base = 'gclv/v1/';
 $client = new G_Cal_List_View_Client ();
 $client -> init_client ();
-		
+
 
 /**
  * Add JSON API routes
@@ -25,8 +25,14 @@ add_action( 'rest_api_init', function () use ( $api_base, $client ) {
 			'callback' => function ( WP_REST_Request $req ) use ( $client ) {
 				
 				$refresh_token_header = $req -> get_header ( 'GCLV-RTK' );
+				$redirect = $req -> get_header ( 'GCLV-RD_URL' );
 				
-				$result = g_cal_list_view_do_refresh_token ( $req, $client, $refresh_token_header );
+				$result = g_cal_list_view_do_refresh_token (
+					$req,
+					$client,
+					$refresh_token_header,
+					$redirect
+				);
 				// return array_merge ( $result, array ( 'custom_header' => $refresh_token_header ) );
 				return $result;
 				
@@ -57,9 +63,11 @@ add_action( 'rest_api_init', function () use ( $api_base, $client ) {
 /**
  * Get Google Authentication Token from Refresh Token
  */
-function g_cal_list_view_do_refresh_token ( WP_REST_Request $req, $client, $refresh_token_header ) {
+function g_cal_list_view_do_refresh_token ( WP_REST_Request $req, $client, $refresh_token_header, $redirect ) {
 	
 	if ( isset ( $refresh_token_header ) && $refresh_token_header !== null ) {
+
+		$client -> init_client ( $redirect );
 		
 		if ( $refresh_token_header === '_DB' ) {
 			global $wpdb;
