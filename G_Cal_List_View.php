@@ -223,6 +223,19 @@ function g_calendar_list_view_save_setting ( $setting_name, $setting_value ) {
 
 }
 
+function g_calendar_list_view_get_setting ( $setting_name ) {
+	
+	global $wpdb;
+	
+	//
+	// validate setting row in DB
+	$query_res = $wpdb -> get_row (
+		$wpdb -> prepare ( "SELECT g.setting_value FROM " . $wpdb -> prefix . "g_cal_list_view g WHERE g.setting_name = '" . $setting_name . "'")
+	);
+	
+	return $query_res -> setting_value;
+}
+
 /*
  * Add custom page to call the Google login publicly
  */
