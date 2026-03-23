@@ -146,8 +146,8 @@ function enqueue_g_cal_list_view_scripts () {
 	
 	wp_enqueue_style (
 		$handle_base . '_style_app', // handle
-		// 'http://localhost:5173/src/assets/main.css', // source
-		get_site_url() . $plugin_path . $app_dist_path . '/index-fjhaXE_k.css',
+		'http://localhost:5173/src/assets/main.css', // source
+		// get_site_url() . $plugin_path . $app_dist_path . '/index-DoG9IM1L.css',
 		[], // dependencies
 		'1.0', // version
 	);
@@ -155,7 +155,7 @@ function enqueue_g_cal_list_view_scripts () {
 	wp_enqueue_script_module (
 		$handle_base . '_script_app[module]', // handle
 		'http://localhost:5173/src/main.js', // source
-		// get_site_url() . $plugin_path . $app_dist_path . '/index-B0jG-f3h.js', // source
+		// get_site_url() . $plugin_path . $app_dist_path . '/index-QCwguXnD.js', // source
 		[], // dependencies
 		'1.0', // version
 		array ( 'in_footer' => true ) // in footer
