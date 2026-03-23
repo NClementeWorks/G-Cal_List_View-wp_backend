@@ -91,8 +91,8 @@ else if ( !isset ( $_GET[ 'code' ] ) && !isset ( $_GET[ 'error' ] ) ) {
 		</button>
 		<script type="text/javascript">
 		function open_login_popup () {
-			window.open('<?= filter_var ( $auth_url, FILTER_SANITIZE_URL ) ?>', 'Google Authentication','height=600,width=400')
-			if ( window.focus ) { newwindow.focus() }
+			popup = window.open('<?= filter_var ( $auth_url, FILTER_SANITIZE_URL ) ?>', 'Google Authentication','height=600,width=400')
+			if ( window.focus ) { popup.focus() }
 		}
 		</script>
 <?php 
